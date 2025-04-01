@@ -1,12 +1,9 @@
 package com.example.calenderdevelop.dto;
 
-
 import lombok.Getter;
 
 @Getter
-public class CalenderResponseDto {
-
-    private final Long id;
+public class CreateCalenderRequestDto {
 
     private final String username;
 
@@ -14,10 +11,10 @@ public class CalenderResponseDto {
 
     private final String contents;
 
-    public CalenderResponseDto(Long id, String username, String title, String contents) {
-        this.id = id;
+    public CreateCalenderRequestDto(String username, String title, String contents) {
         this.username = username;
         this.title = title;
         this.contents = contents;
     }
+
 }
