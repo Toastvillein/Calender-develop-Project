@@ -1,8 +1,6 @@
 package com.example.calenderdevelop.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
@@ -10,8 +8,20 @@ import lombok.Getter;
 @Table(name="calender")
 public class Calender extends BaseEntity {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false,columnDefinition = "longtext")
+    private String contents;
+
+    public Calender() {
+    }
 
 
 }
