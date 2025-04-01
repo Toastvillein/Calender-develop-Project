@@ -15,4 +15,6 @@ public interface CalenderService {
     List<CalenderResponseDto> findAll();
 
     CalenderResponseDto updateCalender(Long id,String title, String contents);
+
+    void deleteCalender(Long id);
 }

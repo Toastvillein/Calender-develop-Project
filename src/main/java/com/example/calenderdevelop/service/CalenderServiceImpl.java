@@ -53,5 +53,13 @@ public class CalenderServiceImpl implements CalenderService {
         return new CalenderResponseDto(findCal);
     }
 
+    @Override
+    public void deleteCalender(Long id) {
+        Calender findCal = calenderRepository.findByIdOrElseThrow(id);
+
+        calenderRepository.delete(findCal);
+
+    }
+
 
 }
