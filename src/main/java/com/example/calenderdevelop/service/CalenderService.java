@@ -13,4 +13,6 @@ public interface CalenderService {
     CalenderResponseDto findById(Long id);
 
     List<CalenderResponseDto> findAll();
+
+    CalenderResponseDto updateCalender(Long id,String title, String contents);
 }

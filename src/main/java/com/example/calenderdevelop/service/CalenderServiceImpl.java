@@ -6,6 +6,7 @@ import com.example.calenderdevelop.entity.Calender;
 import com.example.calenderdevelop.repository.CalenderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +40,17 @@ public class CalenderServiceImpl implements CalenderService {
         return calenderRepository.findAll().stream()
                 .map(CalenderResponseDto::new)
                 .toList();
+    }
+
+    @Transactional
+    @Override
+    public CalenderResponseDto updateCalender(Long id,String title, String contents) {
+
+        Calender findCal = calenderRepository.findByIdOrElseThrow(id);
+
+        findCal.updateCal(title,contents);
+
+        return new CalenderResponseDto(findCal);
     }
 
 

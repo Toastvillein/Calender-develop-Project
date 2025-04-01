@@ -28,4 +28,9 @@ public class Calender extends BaseEntity {
         this.title = title;
         this.contents = contents;
     }
+
+    public void updateCal(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }

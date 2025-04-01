@@ -2,6 +2,7 @@ package com.example.calenderdevelop.controller;
 
 import com.example.calenderdevelop.dto.CalenderResponseDto;
 import com.example.calenderdevelop.dto.CreateCalenderRequestDto;
+import com.example.calenderdevelop.dto.UpdateCalenderRequestDto;
 import com.example.calenderdevelop.service.CalenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,16 @@ public class CalenderController {
 
         return new ResponseEntity<>(all,HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CalenderResponseDto> updateCalender(
+            @PathVariable Long id,
+            @RequestBody UpdateCalenderRequestDto dto
+    ){
+        CalenderResponseDto update = calenderService.updateCalender(id,dto.getTitle(),dto.getContents());
+
+        return new ResponseEntity<>(update,HttpStatus.OK);
+    }
+
 
 }
