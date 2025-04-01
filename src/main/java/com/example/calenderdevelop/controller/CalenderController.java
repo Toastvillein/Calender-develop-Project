@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/calenders")
 @RequiredArgsConstructor
@@ -30,6 +32,14 @@ public class CalenderController {
         CalenderResponseDto findById = calenderService.findById(id);
 
         return new ResponseEntity<>(findById,HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CalenderResponseDto>> findAll(){
+
+        List<CalenderResponseDto> all = calenderService.findAll();
+
+        return new ResponseEntity<>(all,HttpStatus.OK);
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.calenderdevelop.service;
 
 import com.example.calenderdevelop.dto.CalenderResponseDto;
 
+import java.util.List;
+
 public interface CalenderService {
 
 
@@ -9,4 +11,6 @@ public interface CalenderService {
 
 
     CalenderResponseDto findById(Long id);
+
+    List<CalenderResponseDto> findAll();
 }
