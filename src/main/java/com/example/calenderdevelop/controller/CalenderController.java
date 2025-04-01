@@ -22,9 +22,9 @@ public class CalenderController {
     public ResponseEntity<CalenderResponseDto> createCalender(
             @RequestBody CreateCalenderRequestDto dto
     ){
-        calenderService.createCalender();
+        CalenderResponseDto create = calenderService.createCalender(dto.getUsername(), dto.getTitle(), dto.getContents());
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(create,HttpStatus.CREATED);
     }
 
 }
