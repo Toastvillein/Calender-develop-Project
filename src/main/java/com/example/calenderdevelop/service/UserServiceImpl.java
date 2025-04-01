@@ -21,4 +21,12 @@ public class UserServiceImpl implements UserService {
 
         return new UserResponseDto(save);
     }
+
+    @Override
+    public UserResponseDto findUserById(Long id) {
+
+        User userByIdOrElseThrow = userRepository.findUserByIdOrElseThrow(id);
+
+        return new UserResponseDto(userByIdOrElseThrow);
+    }
 }

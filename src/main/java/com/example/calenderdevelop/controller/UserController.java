@@ -6,10 +6,7 @@ import com.example.calenderdevelop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,6 +22,14 @@ public class UserController {
 
         return new ResponseEntity<>(user,HttpStatus.CREATED);
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id){
+
+        UserResponseDto userById = userService.findUserById(id);
+
+        return new ResponseEntity<>(userById,HttpStatus.OK);
     }
 
 

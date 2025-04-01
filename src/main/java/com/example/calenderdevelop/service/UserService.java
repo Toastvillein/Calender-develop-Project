@@ -4,4 +4,6 @@ import com.example.calenderdevelop.dto.UserResponseDto;
 
 public interface UserService {
     UserResponseDto createUser(String username,String email);
+
+    UserResponseDto findUserById(Long id);
 }
