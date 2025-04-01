@@ -8,4 +8,5 @@ public interface CalenderService {
     CalenderResponseDto createCalender(String username, String title, String contents);
 
 
+    CalenderResponseDto findById(Long id);
 }

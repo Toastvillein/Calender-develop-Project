@@ -24,4 +24,12 @@ public class CalenderServiceImpl implements CalenderService {
                 createCalender.getId(),createCalender.getUsername(),
                 createCalender.getTitle(),createCalender.getContents());
     }
+
+    @Override
+    public CalenderResponseDto findById(Long id) {
+
+        Calender findByID = calenderRepository.findByIdOrElseThrow(id);
+
+        return new CalenderResponseDto(findByID.getId(),findByID.getUsername(),findByID.getTitle(), findByID.getContents());
+    }
 }
