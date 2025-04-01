@@ -6,6 +6,8 @@ import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -28,5 +30,13 @@ public class UserServiceImpl implements UserService {
         User userByIdOrElseThrow = userRepository.findUserByIdOrElseThrow(id);
 
         return new UserResponseDto(userByIdOrElseThrow);
+    }
+
+    @Override
+    public List<UserResponseDto> findAllUser() {
+
+        return userRepository.findAll().stream()
+                .map(UserResponseDto::new)
+                .toList();
     }
 }
