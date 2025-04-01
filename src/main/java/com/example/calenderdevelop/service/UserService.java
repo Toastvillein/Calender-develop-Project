@@ -12,4 +12,8 @@ public interface UserService {
     List<UserResponseDto> findAllUser();
 
     UserResponseDto updateUser(Long id,String email);
+
+    void deleteUser(Long id);
+
+
 }

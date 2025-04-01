@@ -5,6 +5,7 @@ import com.example.calenderdevelop.entity.User;
 import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    @Transactional
     @Override
     public UserResponseDto updateUser(Long id,String email) {
 
@@ -48,5 +50,14 @@ public class UserServiceImpl implements UserService {
         userByIdOrElseThrow.updateUser(email);
 
         return new UserResponseDto(userByIdOrElseThrow);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+
+        User userByIdOrElseThrow = userRepository.findUserByIdOrElseThrow(id);
+
+        userRepository.delete(userByIdOrElseThrow);
+
     }
 }
