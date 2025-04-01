@@ -39,4 +39,14 @@ public class UserServiceImpl implements UserService {
                 .map(UserResponseDto::new)
                 .toList();
     }
+
+    @Override
+    public UserResponseDto updateUser(Long id,String email) {
+
+        User userByIdOrElseThrow = userRepository.findUserByIdOrElseThrow(id);
+
+        userByIdOrElseThrow.updateUser(email);
+
+        return new UserResponseDto(userByIdOrElseThrow);
+    }
 }

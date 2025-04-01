@@ -1,6 +1,7 @@
 package com.example.calenderdevelop.controller;
 
 import com.example.calenderdevelop.dto.CreateUserRequestDto;
+import com.example.calenderdevelop.dto.UpdateUserRequestDto;
 import com.example.calenderdevelop.dto.UserResponseDto;
 import com.example.calenderdevelop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,18 @@ public class UserController {
         List<UserResponseDto> allUser = userService.findAllUser();
 
         return new ResponseEntity<>(allUser,HttpStatus.OK);
+
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserResponseDto> updateUser(
+            @PathVariable Long id,
+            @RequestBody UpdateUserRequestDto dto
+            ){
+
+        UserResponseDto userResponseDto = userService.updateUser(id,dto.getEmail());
+
+        return new ResponseEntity<>(userResponseDto,HttpStatus.OK);
 
     }
 
