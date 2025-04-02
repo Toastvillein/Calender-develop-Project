@@ -1,10 +1,10 @@
 package com.example.calenderdevelop.controller;
 
-import com.example.calenderdevelop.dto.CreateUserRequestDto;
-import com.example.calenderdevelop.dto.UpdateUserRequestDto;
-import com.example.calenderdevelop.dto.UserResponseDto;
-import com.example.calenderdevelop.dto.deleteUserRequestDto;
+import com.example.calenderdevelop.common.Const;
+import com.example.calenderdevelop.dto.*;
 import com.example.calenderdevelop.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,26 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(
+            @RequestBody LoginRequestDto dto,
+            HttpServletRequest request
+            ){
+
+        LoginResponseDto responseDto = userService.login(dto.getEmail(),dto.getPassword());
+
+        Long id = responseDto.getId();
+
+        HttpSession session = request.getSession();
+
+        UserResponseDto userById = userService.findUserById(id);
+
+        session.setAttribute(Const.Login_User,userById);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/signup")
     public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserRequestDto dto){
 
         UserResponseDto user = userService.createUser(dto.getUsername(), dto.getEmail(),dto.getPassword());

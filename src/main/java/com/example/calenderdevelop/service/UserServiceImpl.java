@@ -1,5 +1,6 @@
 package com.example.calenderdevelop.service;
 
+import com.example.calenderdevelop.dto.LoginResponseDto;
 import com.example.calenderdevelop.dto.UserResponseDto;
 import com.example.calenderdevelop.entity.User;
 import com.example.calenderdevelop.repository.UserRepository;
@@ -10,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
 
     private final UserRepository userRepository;
 
@@ -68,6 +71,15 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.delete(userByIdOrElseThrow);
+
+    }
+
+    @Override
+    public LoginResponseDto login(String email, String password) {
+
+        Optional<User> login = userRepository.findByUsernameAndPassword(email, password);
+
+        return new LoginResponseDto(login.orElseThrow().getId());
 
     }
 }
