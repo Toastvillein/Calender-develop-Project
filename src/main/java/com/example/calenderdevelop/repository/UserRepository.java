@@ -14,6 +14,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
                 new ResponseStatusException(HttpStatus.NO_CONTENT,"존재하지 않는 아이디입니다."));
     }
 
-    Optional<User> findByUsernameAndPassword(String email, String password);
+    Optional<User> findByEmailAndPassword(String email, String password);
 
 }
