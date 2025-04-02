@@ -5,15 +5,15 @@ import com.example.calenderdevelop.dto.UserResponseDto;
 import java.util.List;
 
 public interface UserService {
-    UserResponseDto createUser(String username,String email);
+    UserResponseDto createUser(String username,String email, String password);
 
     UserResponseDto findUserById(Long id);
 
     List<UserResponseDto> findAllUser();
 
-    UserResponseDto updateUser(Long id,String email);
+    UserResponseDto updateUser(Long id,String email,String password);
 
-    void deleteUser(Long id);
+    void deleteUser(Long id,String password);
 
 
 }

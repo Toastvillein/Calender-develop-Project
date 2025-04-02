@@ -3,6 +3,7 @@ package com.example.calenderdevelop.controller;
 import com.example.calenderdevelop.dto.CreateUserRequestDto;
 import com.example.calenderdevelop.dto.UpdateUserRequestDto;
 import com.example.calenderdevelop.dto.UserResponseDto;
+import com.example.calenderdevelop.dto.deleteUserRequestDto;
 import com.example.calenderdevelop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserRequestDto dto){
 
-        UserResponseDto user = userService.createUser(dto.getUsername(), dto.getEmail());
+        UserResponseDto user = userService.createUser(dto.getUsername(), dto.getEmail(),dto.getPassword());
 
         return new ResponseEntity<>(user,HttpStatus.CREATED);
 
@@ -50,16 +51,19 @@ public class UserController {
             @RequestBody UpdateUserRequestDto dto
             ){
 
-        UserResponseDto userResponseDto = userService.updateUser(id,dto.getEmail());
+        UserResponseDto userResponseDto = userService.updateUser(id,dto.getEmail(),dto.getPassword());
 
         return new ResponseEntity<>(userResponseDto,HttpStatus.OK);
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(
+            @PathVariable Long id,
+            @RequestBody deleteUserRequestDto dto
+    ) {
 
-        userService.deleteUser(id);
+        userService.deleteUser(id,dto.getPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
