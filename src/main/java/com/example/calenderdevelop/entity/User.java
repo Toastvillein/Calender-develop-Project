@@ -17,15 +17,20 @@ public class User extends BaseEntity {
 
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     public User() {
     }
 
-    public User(String username, String email) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
-    public void updateUser(String email) {
+    public void updateUser(String email, String password) {
         this.email = email;
+        this.password = password;
     }
 }

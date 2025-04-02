@@ -7,7 +7,10 @@ public class UpdateUserRequestDto {
 
     private final String email;
 
-    public UpdateUserRequestDto(String email) {
+    private final String password;
+
+    public UpdateUserRequestDto(String email, String password) {
         this.email = email;
+        this.password = password;
     }
 }
