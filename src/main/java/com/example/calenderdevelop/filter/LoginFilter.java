@@ -1,5 +1,6 @@
 package com.example.calenderdevelop.filter;
 
+import com.example.calenderdevelop.common.Const;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginFilter implements Filter {
     // 인증을 하지 않아도될 URL Path 배열
-    private static final String[] WHITE_LIST = {"/","/api/users/signup","/api/login"};
+    private static final String[] WHITE_LIST = {"/","/api/users/signup","/api/users/login"};
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -35,7 +36,7 @@ public class LoginFilter implements Filter {
             HttpSession session = httpServletRequest.getSession(false);
 
             // 로그인하지 않은 사용자인 경우
-            if (session==null || session.getAttribute("sessionKey")==null){
+            if (session==null || session.getAttribute(Const.Login_User)==null){
                 throw new RuntimeException("로그인 해주세요");
             }
             log.info("로그인에 성공했습니다.");

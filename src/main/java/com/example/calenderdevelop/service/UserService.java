@@ -1,6 +1,9 @@
 package com.example.calenderdevelop.service;
 
+import com.example.calenderdevelop.dto.LoginResponseDto;
 import com.example.calenderdevelop.dto.UserResponseDto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -15,5 +18,5 @@ public interface UserService {
 
     void deleteUser(Long id,String password);
 
-
+    LoginResponseDto login(@NotBlank String username, @NotNull String password);
 }
