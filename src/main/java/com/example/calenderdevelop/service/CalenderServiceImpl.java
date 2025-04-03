@@ -1,9 +1,12 @@
 package com.example.calenderdevelop.service;
 
 
-import com.example.calenderdevelop.dto.CalenderResponseDto;
+import com.example.calenderdevelop.dto.response.CalenderResponseDto;
 import com.example.calenderdevelop.entity.Calender;
+import com.example.calenderdevelop.entity.User;
+import com.example.calenderdevelop.exception.CustomException;
 import com.example.calenderdevelop.repository.CalenderRepository;
+import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +19,16 @@ public class CalenderServiceImpl implements CalenderService {
 
     private final CalenderRepository calenderRepository;
 
+    private final UserRepository userRepository;
+
     @Override
     public CalenderResponseDto createCalender(String username, String title, String contents) {
 
-        Calender calender = new Calender(username, title, contents);
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new CustomException("해당 이름을 가진 유저가 없습니다.")
+        );
+
+        Calender calender = new Calender(username, title, contents, user);
 
         Calender createCalender = calenderRepository.save(calender);
 

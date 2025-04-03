@@ -1,4 +1,4 @@
-package com.example.calenderdevelop.dto;
+package com.example.calenderdevelop.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

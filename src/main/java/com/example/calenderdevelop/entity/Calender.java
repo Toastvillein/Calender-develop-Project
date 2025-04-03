@@ -11,7 +11,7 @@ public class Calender extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)
@@ -27,10 +27,11 @@ public class Calender extends BaseEntity {
     public Calender() {
     }
 
-    public Calender(String username, String title, String contents) {
+    public Calender(String username, String title, String contents,User user) {
         this.username = username;
         this.title = title;
         this.contents = contents;
+        this.user = user;
     }
 
     public void updateCal(String title, String contents) {

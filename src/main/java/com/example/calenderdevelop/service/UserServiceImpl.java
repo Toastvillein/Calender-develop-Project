@@ -1,8 +1,8 @@
 package com.example.calenderdevelop.service;
 
 import com.example.calenderdevelop.config.PasswordEncoder;
-import com.example.calenderdevelop.dto.LoginResponseDto;
-import com.example.calenderdevelop.dto.UserResponseDto;
+import com.example.calenderdevelop.dto.response.LoginResponseDto;
+import com.example.calenderdevelop.dto.response.UserResponseDto;
 import com.example.calenderdevelop.entity.User;
 import com.example.calenderdevelop.exception.CustomException;
 import com.example.calenderdevelop.repository.UserRepository;

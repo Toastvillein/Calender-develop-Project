@@ -1,6 +1,6 @@
 package com.example.calenderdevelop.service;
 
-import com.example.calenderdevelop.dto.CalenderResponseDto;
+import com.example.calenderdevelop.dto.response.CalenderResponseDto;
 
 import java.util.List;
 
