@@ -1,29 +1,31 @@
 package com.example.calenderdevelop.service;
 
+import com.example.calenderdevelop.config.PasswordEncoder;
 import com.example.calenderdevelop.dto.LoginResponseDto;
 import com.example.calenderdevelop.dto.UserResponseDto;
 import com.example.calenderdevelop.entity.User;
+import com.example.calenderdevelop.exception.CustomException;
 import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto createUser(String username, String email, String password) {
 
-        User user = new User(username,email,password);
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = new User(username,email,encodedPassword);
 
         User save = userRepository.save(user);
 
@@ -50,36 +52,47 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto updateUser(Long id,String email,String password) {
 
-        User userByIdOrElseThrow = userRepository.findUserByIdOrElseThrow(id);
+        User user = userRepository.findUserByIdOrElseThrow(id);
 
-        if(!userByIdOrElseThrow.getPassword().equals(password)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀번호가 일치하지 않습니다.");
+        boolean matches = passwordEncoder.matches(password, user.getPassword());
+
+        if(!matches){
+            throw new CustomException("비밀번호가 일치하지 않습니다");
         }
 
-        userByIdOrElseThrow.updateUser(email,password);
+        String encodedPassword = passwordEncoder.encode(password);
 
-        return new UserResponseDto(userByIdOrElseThrow);
+        user.updateUser(email,encodedPassword);
+
+        return new UserResponseDto(user);
     }
 
     @Override
     public void deleteUser(Long id,String password) {
 
-        User userByIdOrElseThrow = userRepository.findUserByIdOrElseThrow(id);
+        User user = userRepository.findUserByIdOrElseThrow(id);
 
-        if(!userByIdOrElseThrow.getPassword().equals(password)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀번호가 일치하지 않습니다.");
+        boolean matches = passwordEncoder.matches(password, user.getPassword());
+
+        if(!matches){
+            throw new CustomException("비밀번호가 일치하지 않습니다");
         }
 
-        userRepository.delete(userByIdOrElseThrow);
+        userRepository.delete(user);
 
     }
 
     @Override
     public LoginResponseDto login(String email, String password) {
+        
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("사용자 찾을수 없음"));
 
-        Optional<User> login = userRepository.findByEmailAndPassword(email, password);
+        boolean matches = passwordEncoder.matches(password, user.getPassword());
+        if(!matches){
+            throw new CustomException("비밀번호가 일치하지 않습니다");
+        }
 
-        User user = login.orElseThrow(() -> new IllegalArgumentException("사용자 찾을 수 없음"));
 
         return new LoginResponseDto(user.getId());
 
