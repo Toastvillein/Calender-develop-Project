@@ -5,11 +5,14 @@ import com.example.calenderdevelop.dto.response.CommentResponseDto;
 import com.example.calenderdevelop.entity.Calender;
 import com.example.calenderdevelop.entity.Comment;
 import com.example.calenderdevelop.entity.User;
+import com.example.calenderdevelop.exception.CustomException;
 import com.example.calenderdevelop.repository.CalenderRepository;
 import com.example.calenderdevelop.repository.CommentRepository;
 import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +36,18 @@ public class CommentServiceImpl implements CommentService {
         Comment save = commentRepository.save(comment);
 
         return new CommentResponseDto(save.getComments());
+    }
+
+    @Override
+    public List<CommentResponseDto> findCommentByID(Long id) {
+        List<Comment> comments = commentRepository.findAllByCalender_id(id);
+
+        if(comments==null){
+            throw new CustomException("해당 일정이 없습니다.");
+        }
+
+        return comments.stream()
+                .map(comment -> new CommentResponseDto(comment.getComments()))
+                .toList();
     }
 }
