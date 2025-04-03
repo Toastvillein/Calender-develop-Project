@@ -8,10 +8,11 @@ import com.example.calenderdevelop.exception.CustomException;
 import com.example.calenderdevelop.repository.CalenderRepository;
 import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -44,11 +45,19 @@ public class CalenderServiceImpl implements CalenderService {
     }
 
     @Override
-    public List<CalenderResponseDto> findAll() {
+    public Page<CalenderResponseDto> findAll(int page,int size) {
 
-        return calenderRepository.findAll().stream()
-                .map(CalenderResponseDto::new)
-                .toList();
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Calender> calenderPage = calenderRepository.findAllByOrderByModifiedAtDesc(pageable);
+
+        return calenderPage.map(CalenderResponseDto::new);
+
+
+
+//        return calenderRepository.findAll().stream()
+//                .map(CalenderResponseDto::new)
+//                .toList();
     }
 
     @Transactional
