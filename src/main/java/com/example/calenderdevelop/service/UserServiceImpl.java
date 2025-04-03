@@ -1,5 +1,6 @@
 package com.example.calenderdevelop.service;
 
+import com.example.calenderdevelop.config.PasswordEncoder;
 import com.example.calenderdevelop.dto.LoginResponseDto;
 import com.example.calenderdevelop.dto.UserResponseDto;
 import com.example.calenderdevelop.entity.User;
@@ -17,13 +18,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto createUser(String username, String email, String password) {
 
-        User user = new User(username,email,password);
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = new User(username,email,encodedPassword);
 
         User save = userRepository.save(user);
 
