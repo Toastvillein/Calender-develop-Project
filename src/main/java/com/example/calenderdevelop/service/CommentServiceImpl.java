@@ -35,11 +35,12 @@ public class CommentServiceImpl implements CommentService {
 
         Comment save = commentRepository.save(comment);
 
-        return new CommentResponseDto(save.getComments());
+        return new CommentResponseDto(save);
     }
 
     @Override
     public List<CommentResponseDto> findCommentByID(Long id) {
+
         List<Comment> comments = commentRepository.findAllByCalender_id(id);
 
         if(comments==null){
@@ -47,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return comments.stream()
-                .map(comment -> new CommentResponseDto(comment.getComments()))
+                .map(CommentResponseDto::new)
                 .toList();
     }
 }
