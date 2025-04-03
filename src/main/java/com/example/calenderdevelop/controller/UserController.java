@@ -79,7 +79,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(
             @PathVariable Long id,
-            @RequestBody deleteUserRequestDto dto
+            @RequestBody DeleteUserRequestDto dto
     ) {
 
         userService.deleteUser(id,dto.getPassword());

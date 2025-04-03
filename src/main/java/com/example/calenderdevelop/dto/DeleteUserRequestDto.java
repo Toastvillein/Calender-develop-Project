@@ -3,11 +3,11 @@ package com.example.calenderdevelop.dto;
 import lombok.Getter;
 
 @Getter
-public class deleteUserRequestDto {
+public class DeleteUserRequestDto {
 
     private final String password;
 
-    public deleteUserRequestDto(String password) {
+    public DeleteUserRequestDto(String password) {
         this.password = password;
     }
 }
