@@ -1,8 +1,7 @@
 package com.example.calenderdevelop.service;
 
 import com.example.calenderdevelop.dto.response.CalenderResponseDto;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface CalenderService {
 
@@ -12,7 +11,7 @@ public interface CalenderService {
 
     CalenderResponseDto findById(Long id);
 
-    List<CalenderResponseDto> findAll();
+    Page<CalenderResponseDto> findAll(int page, int size);
 
     CalenderResponseDto updateCalender(Long id,String title, String contents);
 

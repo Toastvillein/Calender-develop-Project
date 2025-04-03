@@ -1,16 +1,15 @@
 package com.example.calenderdevelop.controller;
 
-import com.example.calenderdevelop.dto.response.CalenderResponseDto;
 import com.example.calenderdevelop.dto.request.CreateCalenderRequestDto;
 import com.example.calenderdevelop.dto.request.UpdateCalenderRequestDto;
+import com.example.calenderdevelop.dto.response.CalenderResponseDto;
 import com.example.calenderdevelop.service.CalenderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/calenders")
@@ -36,10 +35,13 @@ public class CalenderController {
         return new ResponseEntity<>(findById,HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<CalenderResponseDto>> findAll(){
+    @GetMapping("/pages")
+    public ResponseEntity<Page<CalenderResponseDto>> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+            ){
 
-        List<CalenderResponseDto> all = calenderService.findAll();
+        Page<CalenderResponseDto> all = calenderService.findAll(page, size);
 
         return new ResponseEntity<>(all,HttpStatus.OK);
     }
