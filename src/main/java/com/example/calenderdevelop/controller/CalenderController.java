@@ -1,8 +1,8 @@
 package com.example.calenderdevelop.controller;
 
-import com.example.calenderdevelop.dto.CalenderResponseDto;
-import com.example.calenderdevelop.dto.CreateCalenderRequestDto;
-import com.example.calenderdevelop.dto.UpdateCalenderRequestDto;
+import com.example.calenderdevelop.dto.response.CalenderResponseDto;
+import com.example.calenderdevelop.dto.request.CreateCalenderRequestDto;
+import com.example.calenderdevelop.dto.request.UpdateCalenderRequestDto;
 import com.example.calenderdevelop.service.CalenderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

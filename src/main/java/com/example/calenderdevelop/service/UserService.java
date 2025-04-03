@@ -1,7 +1,7 @@
 package com.example.calenderdevelop.service;
 
-import com.example.calenderdevelop.dto.LoginResponseDto;
-import com.example.calenderdevelop.dto.UserResponseDto;
+import com.example.calenderdevelop.dto.response.LoginResponseDto;
+import com.example.calenderdevelop.dto.response.UserResponseDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
