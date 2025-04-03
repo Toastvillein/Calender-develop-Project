@@ -64,4 +64,12 @@ public class CommentServiceImpl implements CommentService {
 
         return new CommentResponseDto(comment.orElseThrow());
     }
+
+    @Override
+    public void deleteComment(Long userId, Long id) {
+        Optional<Comment> comment = commentRepository.findByCalender_idAndId(userId, id);
+
+        commentRepository.delete(comment.orElseThrow());
+
+    }
 }

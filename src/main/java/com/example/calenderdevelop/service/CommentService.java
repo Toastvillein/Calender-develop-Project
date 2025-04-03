@@ -11,4 +11,6 @@ public interface CommentService {
     List<CommentResponseDto> findCommentByID(Long id);
 
     CommentResponseDto updateComment(Long userId, Long id, String comments);
+
+    void deleteComment(Long userId, Long id);
 }
