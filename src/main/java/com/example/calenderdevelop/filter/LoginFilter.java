@@ -37,7 +37,11 @@ public class LoginFilter implements Filter {
 
             // 로그인하지 않은 사용자인 경우
             if (session==null || session.getAttribute(Const.Login_User)==null){
-                throw new RuntimeException("로그인 해주세요");
+                httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                httpServletResponse.setContentType("application/json");
+                httpServletResponse.getWriter().write("{\"message\": \"로그인 해주세요\"}");
+                return;
+//                throw new RuntimeException("로그인 해주세요");
             }
             log.info("로그인에 성공했습니다.");
         }

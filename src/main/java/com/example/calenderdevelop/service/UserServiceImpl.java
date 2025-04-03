@@ -77,9 +77,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginResponseDto login(String email, String password) {
 
-        Optional<User> login = userRepository.findByUsernameAndPassword(email, password);
+        Optional<User> login = userRepository.findByEmailAndPassword(email, password);
 
-        return new LoginResponseDto(login.orElseThrow().getId());
+        User user = login.orElseThrow(() -> new IllegalArgumentException("사용자 찾을 수 없음"));
+
+        return new LoginResponseDto(user.getId());
 
     }
 }
