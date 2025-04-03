@@ -4,6 +4,7 @@ import com.example.calenderdevelop.dto.CalenderResponseDto;
 import com.example.calenderdevelop.dto.CreateCalenderRequestDto;
 import com.example.calenderdevelop.dto.UpdateCalenderRequestDto;
 import com.example.calenderdevelop.service.CalenderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class CalenderController {
 
     @PostMapping
     public ResponseEntity<CalenderResponseDto> createCalender(
-            @RequestBody CreateCalenderRequestDto dto
+            @RequestBody @Valid CreateCalenderRequestDto dto
     ){
         CalenderResponseDto create = calenderService.createCalender(dto.getUsername(), dto.getTitle(), dto.getContents());
 
@@ -46,7 +47,7 @@ public class CalenderController {
     @PatchMapping("/{id}")
     public ResponseEntity<CalenderResponseDto> updateCalender(
             @PathVariable Long id,
-            @RequestBody UpdateCalenderRequestDto dto
+            @RequestBody @Valid UpdateCalenderRequestDto dto
     ){
         CalenderResponseDto update = calenderService.updateCalender(id,dto.getTitle(),dto.getContents());
 

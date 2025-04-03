@@ -5,6 +5,7 @@ import com.example.calenderdevelop.dto.*;
 import com.example.calenderdevelop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(
-            @RequestBody LoginRequestDto dto,
+            @RequestBody @Valid LoginRequestDto dto,
             HttpServletRequest request
             ){
 
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserRequestDto dto){
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid CreateUserRequestDto dto){
 
         UserResponseDto user = userService.createUser(dto.getUsername(), dto.getEmail(),dto.getPassword());
 
@@ -67,7 +68,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
-            @RequestBody UpdateUserRequestDto dto
+            @RequestBody @Valid UpdateUserRequestDto dto
             ){
 
         UserResponseDto userResponseDto = userService.updateUser(id,dto.getEmail(),dto.getPassword());
