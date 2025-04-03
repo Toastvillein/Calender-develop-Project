@@ -13,7 +13,7 @@ public class CreateUserRequestDto {
     private final String username;
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$\n", message = "옳바른 이메일 형식이 아닙니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message = "옳바른 이메일 형식이 아닙니다.")
     private final String email;
 
     private final String password;
