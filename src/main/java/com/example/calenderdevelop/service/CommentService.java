@@ -9,4 +9,6 @@ public interface CommentService {
     CommentResponseDto creatComment(Long id,String comments);
 
     List<CommentResponseDto> findCommentByID(Long id);
+
+    CommentResponseDto updateComment(Long userId, Long id, String comments);
 }

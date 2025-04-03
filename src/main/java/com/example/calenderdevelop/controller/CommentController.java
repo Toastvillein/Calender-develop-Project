@@ -2,6 +2,7 @@ package com.example.calenderdevelop.controller;
 
 
 import com.example.calenderdevelop.dto.request.CreateCommentRequestDto;
+import com.example.calenderdevelop.dto.request.UpdateCommentRequestDto;
 import com.example.calenderdevelop.dto.response.CommentResponseDto;
 import com.example.calenderdevelop.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,17 @@ public class CommentController {
         List<CommentResponseDto> commentByID = commentService.findCommentByID(id);
 
         return new ResponseEntity<>(commentByID,HttpStatus.OK);
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<CommentResponseDto> updateComment(
+            @PathVariable Long userId,
+            @RequestBody UpdateCommentRequestDto dto
+            ){
+        CommentResponseDto commentResponseDto = commentService.updateComment(userId, dto.getId(), dto.getComments());
+
+        return new ResponseEntity<>(commentResponseDto,HttpStatus.OK);
+
     }
 
 }

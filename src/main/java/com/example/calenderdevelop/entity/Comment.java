@@ -31,4 +31,9 @@ public class Comment extends BaseEntity {
         this.user = user;
         this.calender = calender;
     }
+
+    public void updateComment(String comments){
+        this.comments = comments;
+    }
+
 }

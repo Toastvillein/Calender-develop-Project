@@ -11,8 +11,10 @@ import com.example.calenderdevelop.repository.CommentRepository;
 import com.example.calenderdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +52,16 @@ public class CommentServiceImpl implements CommentService {
         return comments.stream()
                 .map(CommentResponseDto::new)
                 .toList();
+    }
+
+    @Transactional
+    @Override
+    public CommentResponseDto updateComment(Long userId, Long id, String comments) {
+
+        Optional<Comment> comment = commentRepository.findByCalender_idAndId(userId, id);
+
+         comment.orElseThrow().updateComment(comments);
+
+        return new CommentResponseDto(comment.orElseThrow());
     }
 }
